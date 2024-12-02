@@ -1,0 +1,31 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model provinsi {
+  id      Int     @id @default(autoincrement())
+  nama_provinsi   String  
+  perjalanan_dinas_uang_harian_dalam_negeri perjalanan_dinas_uang_harian_dalam_negeri[]
+}
+
+model perjalanan_dinas_uang_harian_dalam_negeri {
+  id      Int     @id @default(autoincrement())
+  tahun     String
+  provinsi_id Int
+  provinsi  provinsi @relation(fields: [provinsi_id], references: [id])
+  satuan    String
+  luar_kota Int
+  dalam_kota_lebih_delapan_jam Int
+  diklat    Int
+}

@@ -1,0 +1,25 @@
+{
+  "name": "datasbm",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "start": "bun src/app.ts",
+    "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
+    "format": "bunx @biomejs/biome format --write ./src",
+    "lint": "bunx @biomejs/biome lint ./src"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/bun": "latest",
+    "prisma": "^6.0.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.0.0",
+    "@types/express": "^5.0.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1"
+  }
+}
