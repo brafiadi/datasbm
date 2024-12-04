@@ -7,4 +7,9 @@ const app: Express = express();
 app.use("/master-data", masterDataRoutes);
 app.use("/perjadin", perjadinRoutes);
 
+app.use((req, res, next) => {
+    console.log(`${req.method} ${req.path}`);
+    next();
+});
+
 export default app;
