@@ -1,0 +1,2 @@
+SELECT *
+FROM kategori_honorarium_penanggung_jawab_pengelola_keuangan

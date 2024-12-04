@@ -27,6 +27,21 @@ model provinsi {
   perjalanan_dinas_uang_harian_dalam_negeri perjalanan_dinas_uang_harian_dalam_negeri[]
 }
 
+model kategori_honorarium_penanggung_jawab_pengelola_keuangan {
+  id      Int     @id @default(autoincrement())
+  uraian  String
+  honorarium honorarium_penanggung_jawab_pengelola_keuangan[]
+}
+
+model honorarium_penanggung_jawab_pengelola_keuangan {
+  id      Int     @id @default(autoincrement())
+  kategori_id Int
+  kategori kategori_honorarium_penanggung_jawab_pengelola_keuangan @relation(fields: [kategori_id], references: [id])
+  uraian  String
+  satuan  String
+  besaran Int
+}
+
 model perjalanan_dinas_uang_harian_dalam_negeri {
   id      Int     @id @default(autoincrement())
   tahun     String
