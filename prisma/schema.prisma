@@ -14,6 +14,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model standar_biaya_masukan {
+  id      Int     @id @default(autoincrement())
+  tahun   String  @default("")
+  judul   String
+  jenis   String @default("")
+  penjelasan  String @db.Text @default("")
+}
 model provinsi {
   id      Int     @id @default(autoincrement())
   nama_provinsi   String  

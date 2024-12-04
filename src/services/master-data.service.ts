@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { getProvinsi } from "@prisma/client/sql";
+import { getProvinsi, getStandarBiayaMasukanByTahun } from "@prisma/client/sql";
 
 const prisma = new PrismaClient();
 
@@ -12,6 +12,11 @@ const getAllProvinsi = async () => {
 	return await prisma.$queryRawTyped(getProvinsi());
 };
 
+const getAllStandarBiayaMasukanByTahun = async (tahun: string) => {
+	return await prisma.$queryRawTyped(getStandarBiayaMasukanByTahun(tahun));
+};
+
 export default {
 	getAllProvinsi,
+	getAllStandarBiayaMasukanByTahun,
 };
