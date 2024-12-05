@@ -1,22 +1,34 @@
 import { PrismaClient } from "@prisma/client";
-import { getProvinsi, getStandarBiayaMasukanByTahun } from "@prisma/client/sql";
+import { selectAllKategori, selectAllKategoriById } from "@prisma/client/sql";
 
 const prisma = new PrismaClient();
 
 const getAllProvinsi = async () => {
-	// return await prisma.provinsi.findMany();
-	// return await prisma.$queryRaw`
-	// 	SELECT *
-	// 	FROM provinsi
-	// `;
-	return await prisma.$queryRawTyped(getProvinsi());
+	return await prisma.$queryRaw`
+		SELECT *
+		FROM provinsi
+	`;
 };
 
-const getAllStandarBiayaMasukanByTahun = async (tahun: string) => {
-	return await prisma.$queryRawTyped(getStandarBiayaMasukanByTahun(tahun));
+const getAllStandarBiayaMasukan = async () => {
+	return await prisma.$queryRaw`
+		SELECT id, judul, jenis
+		FROM standar_biaya_masukan
+		ORDER BY id
+	`;
+};
+
+const getAllKategori = async () => {
+	return await prisma.$queryRawTyped(selectAllKategori());
+};
+
+const getKategoriById = async (id: number) => {
+	return await prisma.$queryRawTyped(selectAllKategoriById(id));
 };
 
 export default {
 	getAllProvinsi,
-	getAllStandarBiayaMasukanByTahun,
+	getAllStandarBiayaMasukan,
+	getAllKategori,
+	getKategoriById,
 };

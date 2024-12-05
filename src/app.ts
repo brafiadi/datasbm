@@ -6,8 +6,8 @@ import honorariumRoutes from "./routes/honorarium.route";
 const app: Express = express();
 
 app.use("/master-data", masterDataRoutes);
-app.use("/perjadin", perjadinRoutes);
-app.use("/honorarium", honorariumRoutes);
+// app.use("/perjadin", perjadinRoutes);
+// app.use("/honorarium", honorariumRoutes);
 
 app.use((req, res, next) => {
 	console.log(`${req.method} ${req.path}`);

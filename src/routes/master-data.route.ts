@@ -6,7 +6,8 @@ const router: Router = expres.Router();
 router.get("/provinsi", masterDataControler.getProvinsi);
 router.get(
 	"/standar-biaya-masukan",
-	masterDataControler.getStandarBiayaMasukanByTahun,
+	masterDataControler.getStandarBiayaMasukan,
 );
+router.get("/standar-biaya-masukan-kategori", masterDataControler.getKategori);
 
 export default router;

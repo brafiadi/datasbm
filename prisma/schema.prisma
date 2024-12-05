@@ -16,52 +16,98 @@ datasource db {
 
 model standar_biaya_masukan {
   id      Int     @id @default(autoincrement())
-  tahun   String  @default("")
+  // tahun   String  @default("")
   judul   String
   jenis   String @default("")
   penjelasan  String @db.Text @default("")
+  kategori  kategori[]
+  uraian  uraian[]
 }
 model provinsi {
   id      Int     @id @default(autoincrement())
   nama_provinsi   String  
-  perjalanan_dinas_uang_harian_dalam_negeri perjalanan_dinas_uang_harian_dalam_negeri[]
-  perjalanan_dinas_penginapan_dalam_negeri  perjalanan_dinas_penginapan_dalam_negeri[]
+  uraian uraian[]
 }
 
-model kategori_honorarium_penanggung_jawab_pengelola_keuangan {
-  id      Int     @id @default(autoincrement())
-  uraian  String
-  honorarium honorarium_penanggung_jawab_pengelola_keuangan[]
+model kategori {
+   id      Int     @id @default(autoincrement())
+   standar_biaya_masukan_id Int
+   standar_biaya_masukan  standar_biaya_masukan @relation(fields: [standar_biaya_masukan_id], references: [id])
+   nama_kategori  String
+   sub_kategori sub_kategori[]
+   uraian uraian[]
 }
 
-model honorarium_penanggung_jawab_pengelola_keuangan {
-  id      Int     @id @default(autoincrement())
-  kategori_id Int
-  kategori kategori_honorarium_penanggung_jawab_pengelola_keuangan @relation(fields: [kategori_id], references: [id])
-  uraian  String
-  satuan  String
-  besaran Int
+model sub_kategori {
+   id      Int     @id @default(autoincrement())
+   kategori_id  Int
+   kategori kategori @relation(fields: [kategori_id], references: [id])
+   nama_sub_kategori  String
+   uraian uraian[]
 }
 
-model perjalanan_dinas_uang_harian_dalam_negeri {
+model uraian {
   id      Int     @id @default(autoincrement())
-  tahun     String
-  provinsi_id Int
-  provinsi  provinsi @relation(fields: [provinsi_id], references: [id])
-  satuan    String
-  luar_kota Int
-  dalam_kota_lebih_delapan_jam Int
-  diklat    Int
+  uraian  String?
+  satuan  String?
+  standar_biaya_masukan_id  Int
+  standar_biaya_masukan standar_biaya_masukan @relation(fields: [standar_biaya_masukan_id], references: [id])
+  kategori_id Int?
+  kategori  kategori? @relation(fields: [kategori_id], references: [id])
+  sub_kategori_id Int?
+  sub_kategori  sub_kategori? @relation(fields: [sub_kategori_id], references: [id])
+  provinsi_id Int?
+  provinsi  provinsi? @relation(fields: [provinsi_id], references: [id])
+  biaya biaya[]
 }
 
-model perjalanan_dinas_penginapan_dalam_negeri {
+model biaya {
   id      Int     @id @default(autoincrement())
-  tahun     String
-  provinsi_id Int
-  provinsi  provinsi @relation(fields: [provinsi_id], references: [id])
-  satuan    String
-  pejabat_eselon_1 Int
-  pejabat_eselon_2 Int
-  pejabat_eselon_3 Int
-  pejabat_eselon_4 Int
+  uraian_id Int
+  uraian  uraian @relation(fields: [uraian_id], references: [id])
+  tahun   String
+  nilai_1 Int?
+  nilai_2 Int?
+  nilai_3 Int?
+  nilai_4 Int?
+  nilai_5 Int?
+  nilai_6 Int?
 }
+
+// model kategori_honorarium_penanggung_jawab_pengelola_keuangan {
+//   id      Int     @id @default(autoincrement())
+//   uraian  String
+//   honorarium honorarium_penanggung_jawab_pengelola_keuangan[]
+// }
+
+// model honorarium_penanggung_jawab_pengelola_keuangan {
+//   id      Int     @id @default(autoincrement())
+//   kategori_id Int
+//   kategori kategori_honorarium_penanggung_jawab_pengelola_keuangan @relation(fields: [kategori_id], references: [id])
+//   uraian  String
+//   satuan  String
+//   besaran Int
+// }
+
+// model perjalanan_dinas_uang_harian_dalam_negeri {
+//   id      Int     @id @default(autoincrement())
+//   tahun     String
+//   provinsi_id Int
+//   provinsi  provinsi @relation(fields: [provinsi_id], references: [id])
+//   satuan    String
+//   luar_kota Int
+//   dalam_kota_lebih_delapan_jam Int
+//   diklat    Int
+// }
+
+// model perjalanan_dinas_penginapan_dalam_negeri {
+//   id      Int     @id @default(autoincrement())
+//   tahun     String
+//   provinsi_id Int
+//   provinsi  provinsi @relation(fields: [provinsi_id], references: [id])
+//   satuan    String
+//   pejabat_eselon_1 Int
+//   pejabat_eselon_2 Int
+//   pejabat_eselon_3 Int
+//   pejabat_eselon_4 Int
+// }

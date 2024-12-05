@@ -3,32 +3,41 @@ import masterDataService from "../services/master-data.service";
 
 const getProvinsi = async (req: Request, res: Response) => {
 	try {
-		const provinsi = await masterDataService.getAllProvinsi();
-		res.status(200).json({ status: 200, data: provinsi });
+		const data = await masterDataService.getAllProvinsi();
+		res.status(200).json({ status: 200, data: data });
 	} catch (error) {
-		res.status(500).json({ error: "Error fetching provinsi data" });
+		res.status(500).json({ error: error });
 	}
 };
 
-const getStandarBiayaMasukanByTahun = async (req: Request, res: Response) => {
+const getStandarBiayaMasukan = async (req: Request, res: Response) => {
 	try {
-		const { tahun } = req.query;
-		if (!tahun) {
-			return res
-				.status(400)
-				.json({ error: '"tahun" query parameter is required' });
-		}
-
-		const data = await masterDataService.getAllStandarBiayaMasukanByTahun(
-			tahun as string,
-		);
+		const data = await masterDataService.getAllStandarBiayaMasukan();
 		return res.status(200).json({ status: 200, data: data });
 	} catch (error) {
 		return res.status(500).json({ error: error });
 	}
 };
 
+const getKategori = async (req: Request, res: Response) => {
+	try {
+		const { sbm } = req.query;
+		const id = Number(sbm);
+		console.log(sbm);
+		// let data;
+		if (sbm) {
+			const data = await masterDataService.getKategoriById(id);
+			res.status(200).json({ status: 200, data: data });
+		}
+		const data = await masterDataService.getAllKategori();
+		res.status(200).json({ status: 200, data: data });
+	} catch (error) {
+		res.status(500).json({ error: error });
+	}
+};
+
 export default {
 	getProvinsi,
-	getStandarBiayaMasukanByTahun,
+	getStandarBiayaMasukan,
+	getKategori,
 };
