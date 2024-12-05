@@ -7,5 +7,9 @@ router.get(
 	"/uang-harian-dalam-negeri",
 	perjadinController.getUangHarianDalamNegeriByTahun,
 );
+router.get(
+	"/penginapan-dalam-negeri",
+	perjadinController.getPenginapanDalamNegeriByTahun,
+);
 
 export default router;
