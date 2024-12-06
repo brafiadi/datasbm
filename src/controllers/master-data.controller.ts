@@ -22,11 +22,11 @@ const getStandarBiayaMasukan = async (req: Request, res: Response) => {
 const getKategori = async (req: Request, res: Response) => {
 	try {
 		const { sbm } = req.query;
-		const id = Number(sbm);
-		console.log(sbm);
+		const sbmId = Number(sbm);
+		// console.log(sbm);
 		// let data;
 		if (sbm) {
-			const data = await masterDataService.getKategoriById(id);
+			const data = await masterDataService.getKategoriBySbmId(sbmId);
 			res.status(200).json({ status: 200, data: data });
 		}
 		const data = await masterDataService.getAllKategori();

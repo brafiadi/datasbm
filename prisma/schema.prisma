@@ -16,13 +16,22 @@ datasource db {
 
 model standar_biaya_masukan {
   id      Int     @id @default(autoincrement())
-  // tahun   String  @default("")
   judul   String
   jenis   String @default("")
-  penjelasan  String @db.Text @default("")
+  link    String @default("")
   kategori  kategori[]
   uraian  uraian[]
+  penjelasan  penjelasan_standar_biaya_masukan[]
 }
+
+model penjelasan_standar_biaya_masukan {
+  id      Int     @id @default(autoincrement())
+  tahun   String
+  standar_biaya_masukan_id  Int
+  standar_biaya_masukan standar_biaya_masukan @relation(fields: [standar_biaya_masukan_id], references: [id])
+  penjelasan  String @db.Text @default("")
+}
+
 model provinsi {
   id      Int     @id @default(autoincrement())
   nama_provinsi   String  

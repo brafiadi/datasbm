@@ -1,34 +1,27 @@
 import type { Request, Response } from "express";
 import honorariumService from "../services/honorarium.service";
 
-export const getKategoriHonorariumPengelolaKeuangan = async (
-	req: Request,
-	res: Response,
-) => {
-	try {
-		const data =
-			await honorariumService.getListKategoriHonorariumPengelolaKeuangan();
-		return res.status(200).json({ status: 200, data: data });
-	} catch (error) {
-		return res.status(500).json({ error: error });
-	}
-};
-
 export const getHonorariumPengelolaKeuangan = async (
 	req: Request,
 	res: Response,
 ) => {
 	try {
-		const { kategori_id } = req.query;
-		if (!kategori_id) {
+		const { tahun, sbm } = req.query;
+		const sbm_id = Number(sbm);
+		if (!tahun) {
 			return res
 				.status(400)
-				.json({ error: '"kategori_id" query parameter is required' });
+				.json({ error: '"tahun" query parameter is required' });
 		}
-		const data =
-			await honorariumService.getListHonorariumPengelolaKeuanganByKategori(
-				kategori_id as string,
-			);
+		if (!sbm) {
+			return res
+				.status(400)
+				.json({ error: '"tahun" sbm parameter is required' });
+		}
+		const data = await honorariumService.getHonorPengelolaKeuangan(
+			tahun,
+			sbm_id,
+		);
 		return res.status(200).json({ status: 200, data: data });
 	} catch (error) {
 		return res.status(500).json({ error: error });
@@ -36,6 +29,5 @@ export const getHonorariumPengelolaKeuangan = async (
 };
 
 export default {
-	getKategoriHonorariumPengelolaKeuangan,
 	getHonorariumPengelolaKeuangan,
 };

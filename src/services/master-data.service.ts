@@ -12,7 +12,7 @@ const getAllProvinsi = async () => {
 
 const getAllStandarBiayaMasukan = async () => {
 	return await prisma.$queryRaw`
-		SELECT id, judul, jenis
+		SELECT id, judul, jenis, link
 		FROM standar_biaya_masukan
 		ORDER BY id
 	`;
@@ -22,13 +22,13 @@ const getAllKategori = async () => {
 	return await prisma.$queryRawTyped(selectAllKategori());
 };
 
-const getKategoriById = async (id: number) => {
-	return await prisma.$queryRawTyped(selectAllKategoriById(id));
+const getKategoriBySbmId = async (sbmId: number) => {
+	return await prisma.$queryRawTyped(selectAllKategoriById(sbmId));
 };
 
 export default {
 	getAllProvinsi,
 	getAllStandarBiayaMasukan,
 	getAllKategori,
-	getKategoriById,
+	getKategoriBySbmId,
 };

@@ -1,27 +1,14 @@
 import { PrismaClient } from "@prisma/client";
-import {
-	getKategoriHonorariumPengelolaKeuangan,
-	getHonorariumPengelolaKeuangan,
-} from "@prisma/client/sql";
+import { selectHonorPengelolaKeuangan } from "@prisma/client/sql";
 
 const prisma = new PrismaClient();
 
-const getListKategoriHonorariumPengelolaKeuangan = async () => {
-	// return await prisma.$queryRawTyped(getKategoriHonorariumPengelolaKeuangan());
-	return await prisma.$queryRaw`
-	SELECT *
-	FROM kategori_honorarium_penanggung_jawab_pengelola_keuangan`;
-};
-
-const getListHonorariumPengelolaKeuanganByKategori = async (
-	kategori_id: string,
-) => {
+const getHonorPengelolaKeuangan = async (tahun: string, sbm_id: number) => {
 	return await prisma.$queryRawTyped(
-		getHonorariumPengelolaKeuangan(Number(kategori_id)),
+		selectHonorPengelolaKeuangan(tahun, sbm_id),
 	);
 };
 
 export default {
-	getListKategoriHonorariumPengelolaKeuangan,
-	getListHonorariumPengelolaKeuanganByKategori,
+	getHonorPengelolaKeuangan,
 };

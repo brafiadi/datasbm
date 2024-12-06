@@ -2,10 +2,12 @@ import express, { type Express } from "express";
 import masterDataRoutes from "./routes/master-data.route";
 import perjadinRoutes from "./routes/perjadin.route";
 import honorariumRoutes from "./routes/honorarium.route";
+import sbmRoutes from "./routes/sbm.route";
 
 const app: Express = express();
 
 app.use("/master-data", masterDataRoutes);
+app.use("/cari-sbm", sbmRoutes);
 // app.use("/perjadin", perjadinRoutes);
 // app.use("/honorarium", honorariumRoutes);
 
